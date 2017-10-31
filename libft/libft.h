@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 13:36:09 by vmartins          #+#    #+#             */
-/*   Updated: 2017/09/13 11:31:15 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:55:26 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,10 @@ void			ft_tabtospace(char *str);
 char			*ft_join_tab(char const *s);
 char			*ft_escapequote(char const *str);
 int				ft_isenv(char *env_line, char *name);
+char			*ft_getcwd(void);
+char			*ft_removelastslash(char *str);
+int				ft_theirisnothing(char *str);
+char			*ft_removendslash(char *str);
+char			*ft_triplejoin(char *s1, char *s2);
 
 #endif

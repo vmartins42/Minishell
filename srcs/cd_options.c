@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   cd_options.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/26 11:16:09 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/18 15:37:21 by vmartins         ###   ########.fr       */
+/*   Created: 2017/10/16 15:23:16 by vmartins          #+#    #+#             */
+/*   Updated: 2017/10/16 15:25:38 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_memdel(void **ap)
+int		cd_fast(char **tab, t_shell *shell)
 {
-	if (ap != NULL)
+	DIR		*dir;
+
+	if ((dir = opendir(tab[0])))
 	{
-		free(*ap);
-		*ap = NULL;
+		closedir(dir);
+		return (ft_cd(tab, shell, 1));
 	}
+	return (0);
 }

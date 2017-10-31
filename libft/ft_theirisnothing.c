@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_theirisnothing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/26 11:16:09 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/18 15:37:21 by vmartins         ###   ########.fr       */
+/*   Created: 2017/10/10 11:08:37 by vmartins          #+#    #+#             */
+/*   Updated: 2017/10/10 11:12:39 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+int		ft_theirisnothing(char *str)
 {
-	if (ap != NULL)
+	int		i;
+	int		count;
+
+	i = -1;
+	count = 0;
+	while (str[++i])
 	{
-		free(*ap);
-		*ap = NULL;
+		if (ft_isprint(str[i]))
+			count++;
 	}
+	if (count == 0)
+		return (1);
+	return (0);
 }

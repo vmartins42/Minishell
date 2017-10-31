@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 13:12:40 by vmartins          #+#    #+#             */
-/*   Updated: 2017/09/19 15:13:32 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/10/27 13:21:21 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,19 @@ int		check_env(char **tab)
 {
 	int		i;
 
-	i = 0;
-	while (tab[i])
+	i = -1;
+	while (tab[++i])
 	{
 		if (tab[i][0] == '=')
-			return (ft_error_env(tab[i], "minishell: '", "' not found"));
+			return (ft_error_setenv(tab[i], "minishell: '", "' not found"));
 		else if (!ft_strcmp(tab[i], "cd"))
 			return (1);
 		else if (!ft_strcmp(tab[i], "unsetenv"))
-				return (ft_error_env(tab[i], "env : ", \
+			return (ft_error_setenv(tab[i], "env : ", \
 				": No such file or directory"));
 		else if (!ft_strcmp(tab[i], "setenv"))
-				return (ft_error_env(tab[i], "env : ", \
+			return (ft_error_setenv(tab[i], "env : ", \
 				": No such file or directory"));
-		i++;
 	}
 	return (0);
 }
@@ -67,34 +66,28 @@ int		add_or_modif_env(t_shell *shell, char *elem_tab, int i)
 
 int		ft_env(char **tab, t_shell *shell)
 {
-	char	**new;
-	int	i;
-
-	i = 1;
-	new = NULL;
 	if (check_env(tab))
 		return (1);
-	if (tab[1])
+	if (ft_tablen(tab) == 1)
+		aff_env(shell->env);
+	else if (ft_tablen(tab) == 2)
 	{
-		while (tab[i] && ft_strchr(tab[i], '='))
-			add_or_modif_env(shell, tab[i++], 0);
-		if (!tab[i])
+		if (ft_strchr(tab[1], '='))
 		{
+			add_or_modif_env(shell, tab[1], 0);
 			aff_env(shell->env);
 			ft_freetab((void**)shell->env, ft_tablen(shell->env));
 			shell->env = ft_tabdup(shell->old_env);
-			return (1);
 		}
-		i--;
-		while (tab[++i])
-			new = ft_tabpushback(new, ft_strdup(tab[i]));
-	//	return ();
-	//	//
-	//
-	//
-	//
-	//
+		else
+			return (process(&tab[1], shell));
 	}
-	aff_env(shell->env);
+	else
+	{
+		if (ft_strchr(tab[1], '='))
+			return (process(&tab[2], shell));
+		else
+			return (process(&tab[1], shell));
+	}
 	return (1);
 }

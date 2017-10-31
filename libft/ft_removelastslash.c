@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_removelastslash.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/26 11:16:09 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/18 15:37:21 by vmartins         ###   ########.fr       */
+/*   Created: 2017/10/05 15:36:28 by vmartins          #+#    #+#             */
+/*   Updated: 2017/10/10 11:16:27 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+char	*ft_removelastslash(char *str)
 {
-	if (ap != NULL)
+	char	*result;
+	int		len;
+
+	result = NULL;
+	len = ft_strlen(str);
+	if (str[len - 1] == '/' && !str[len])
 	{
-		free(*ap);
-		*ap = NULL;
+		while (str[len - 1] == '/')
+			len--;
+		result = ft_strsub(str, 0, len);
+		return (result);
 	}
+	return (str);
 }

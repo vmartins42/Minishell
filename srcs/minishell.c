@@ -6,20 +6,27 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 13:28:14 by vmartins          #+#    #+#             */
-/*   Updated: 2017/09/20 14:47:10 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/10/30 11:09:34 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void			prompt(t_shell *shell)
+void			prompt(void)
 {
-	(void)shell;
 	char dir[256];
 
-	ft_putendl(getcwd(dir, sizeof(dir)));
+	ft_putstr(getcwd(dir, sizeof(dir)));
 	ft_putstr("$> ");
-	//ft_putstr(dir);
+}
+
+void			ft_handler_signal(int signum)
+{
+	if (signum == SIGINT)
+	{
+		ft_putchar('\n');
+		prompt();
+	}
 }
 
 static char		**parse_cmd(void)
@@ -28,12 +35,17 @@ static char		**parse_cmd(void)
 	char		*temp;
 	char		**tab_cmd_pars;
 
+	line = NULL;
 	get_next_line(0, &line);
-	temp = ft_strtrim(line);
-	tab_cmd_pars = ft_strsplit(line, ';');
-	ft_strdel(&line);
-	free(temp);
-	return (tab_cmd_pars);
+	if (line != NULL)
+	{
+		temp = ft_strtrim(line);
+		tab_cmd_pars = ft_strsplit(line, ';');
+		ft_strdel(&line);
+		free(temp);
+		return (tab_cmd_pars);
+	}
+	return (NULL);
 }
 
 static int		cmd_multi(t_shell *shell, char **tab_cmd_pars)
@@ -45,9 +57,8 @@ static int		cmd_multi(t_shell *shell, char **tab_cmd_pars)
 	while (tab_cmd_pars[++i])
 	{
 		tmp = ft_strsplit(tab_cmd_pars[i], ' ');
-		if (/*is_builtin(tmp[0])*/!check_builtin(tmp, shell, 0))
+		if (!check_builtin(tmp, shell, 0))
 			return (0);
-		//check_builtin(tmp[0], tmp, shell, 0);
 		ft_freetab((void**)tmp, ft_tablen(tmp));
 	}
 	ft_freetab((void**)tab_cmd_pars, ft_tablen(tab_cmd_pars));
@@ -65,10 +76,13 @@ int				main(void)
 	shell = (t_shell *)malloc(sizeof(t_shell));
 	shell->env = ft_tabdup(environ);
 	shell->old_env = ft_tabdup(environ);
+	signal(SIGINT, ft_handler_signal);
 	while (status)
 	{
-		prompt(shell);
+		prompt();
 		tab_cmd_pars = parse_cmd();
+		if (tab_cmd_pars == NULL)
+			break ;
 		status = cmd_multi(shell, tab_cmd_pars);
 	}
 	ft_freetab((void**)shell->env, ft_tablen(shell->env));

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_triplejoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/26 11:16:09 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/18 15:37:21 by vmartins         ###   ########.fr       */
+/*   Created: 2017/10/10 13:55:42 by vmartins          #+#    #+#             */
+/*   Updated: 2017/10/10 15:49:30 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+char	*ft_triplejoin(char *s1, char *s2)
 {
-	if (ap != NULL)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	char	*temp;
+	char	*tmp;
+
+	if (!s1 || !s2)
+		return (NULL);
+	temp = ft_strjoin(s1, "/");
+	tmp = temp;
+	temp = ft_strjoin(temp, s2);
+	ft_strdel(&tmp);
+	return (temp);
 }
