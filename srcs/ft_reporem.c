@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 13:13:34 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/29 17:52:46 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 18:04:06 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char		*add_path(char *str1, char *str2)
 		tmp = ret;
 		ret = ft_strjoin(str1, ret);
 		free(tmp);
-		free (str1);
+		free(str1);
 	}
 	return (ret);
 }
@@ -74,7 +74,7 @@ char			*ft_remove_useless_path(char *str)
 	return (ret);
 }
 
-void	replace_pwd(t_shell **beginshell, char *pwd)
+void			replace_pwd(t_shell **beginshell, char *pwd)
 {
 	char	*getenv;
 	char	*tmp;
@@ -89,8 +89,6 @@ void	replace_pwd(t_shell **beginshell, char *pwd)
 		shell->env = ft_tabpushback(shell->env, tmp);
 		free(tmp);
 	}
-	//ft_strdel(&getenv);
-	//ft_strdel(&pwd);
 	free(getenv);
 	free(pwd);
 	pwd = ft_getcwd();
@@ -104,11 +102,9 @@ void	replace_pwd(t_shell **beginshell, char *pwd)
 	}
 	free(getenv);
 	free(pwd);
-	//ft_strdel(&getenv);
-	//ft_strdel(&pwd);
 }
 
-char	*ft_replace_str(char *new_str, char *old)
+char			*ft_replace_str(char *new_str, char *old)
 {
 	if (old)
 		free(old);

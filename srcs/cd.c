@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 15:38:20 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/29 17:52:47 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 18:01:36 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,4 @@ void		ft_cd(char **tab, t_shell *shell, int fast)
 		swap_pwd(shell);
 	else
 		ft_cd_basic(shell, tab[1]);
-
 }
