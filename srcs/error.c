@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 16:24:18 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/27 13:18:54 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 15:42:23 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		cd_error(char **tab)
 {
-	if (ft_tablen(tab) > 3)
+	if (ft_tablen(tab) > 2)
 		return (ft_error_env("", "cd: ", " too many arguments"));
 	return (0);
 }

@@ -6,132 +6,73 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 15:38:20 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/31 15:00:55 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 17:52:47 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_actual(char *elem_tab, char *getenv, t_shell *shell)
+void		ft_cd_basic(t_shell *shell, char *path)
 {
-	char *actual_path;
-
-	if (ft_strcmp(elem_tab, ".") == 0 ||\
-		(elem_tab[0] == '.' && elem_tab[1] == '/'))
-		actual_path = (getenv) ? ft_strdup(getenv) : ft_getcwd();
-	else if (getenv && !(actual_path = back_link(elem_tab, getenv, 0)))
-		actual_path = check_link(elem_tab, shell->env);
-	else if (!getenv)
-		actual_path = ft_getcwd();
-	return (actual_path);
-}
-
-int		cd_path(char *elem_tab, char *actual_path, t_shell *shell)
-{
+	char	*curpath;
 	char	*pwd;
-	char	*oldpwd;
-	char	*getenv;
-	char	*temp;
 
-	if (check_files(elem_tab))
-	{
-		ft_strdel(&actual_path);
-		return (1);
-	}
-	chdir(elem_tab);
-	getenv = get_env("PWD", shell->env);
-	oldpwd = ft_strjoin("OLDPWD=", actual_path);
-	cd_adomold(&shell, actual_path, oldpwd);
-	temp = ft_removelastslash(elem_tab);
-	actual_path = get_actual(temp, getenv, shell);
-	pwd = ft_strjoin("PWD=", actual_path);
-	cd_adompwd(&shell, actual_path, pwd);
-	ft_strdel(&pwd);
-	ft_strdel(&oldpwd);
-	(getenv) ? ft_strdel(&getenv) : NULL;
-	if (elem_tab[ft_strlen(elem_tab) - 1] == '/' ||
-		(elem_tab[0] == '/' && !elem_tab[1]))
-		ft_strdel(&temp);
-	return (1);
-}
-
-int		cd_nothing(char *actual_path, t_shell *shell)
-{
-	char	*pwd;
-	char	*oldpwd;
-	char	*getenv;
-
-	if (!(getenv = get_env("HOME", shell->env)))
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+	pwd = ft_getcwd();
+	if (path[0] == '/')
+		curpath = ft_strdup(path);
 	else
 	{
-		if (check_files(getenv))
-			return (1);
-		chdir(getenv);
-		pwd = ft_strjoin("PWD=", getenv);
-		oldpwd = ft_strjoin("OLDPWD=", actual_path);
-		cd_adompwd(&shell, getenv, pwd);
-		cd_adomold(&shell, actual_path, oldpwd);
-		ft_strdel(&pwd);
-		ft_strdel(&oldpwd);
+		curpath = ft_strjoin(pwd, "/");
+		curpath = ft_replace_str(ft_strjoin(curpath, path), curpath);
 	}
-	return (1);
+	curpath = ft_replace_str(ft_remove_useless_path(curpath), curpath);
+	if (check_files(path))
+	{
+		free(curpath);
+		free(pwd);
+		return ;
+	}
+	chdir(curpath);
+	free(curpath);
+	replace_pwd(&shell, pwd);
 }
 
-int		cd_back(char *actual_path, t_shell *shell)
+void		swap_pwd(t_shell *shell)
 {
-	char	*pwd;
 	char	*oldpwd;
-	char	*getenv;
-	char	*getn;
 
-	if (!(getenv = get_env("OLDPWD", shell->env)))
+	if ((oldpwd = get_env("OLDPWD", shell->env)) == NULL)
 	{
-		ft_strdel(&actual_path);
-		return (ft_error_env("", "minishell: ", " cd: OLDPWD not set"));
+		ft_error_env("", "cd: OLDPWD not set", "");
+		return ;
 	}
-	oldpwd = getenv;
-	if (check_files(oldpwd))
-		return (1);
-	chdir(oldpwd);
-	pwd = ft_strjoin("PWD=", oldpwd);
-	if ((getn = get_env("PWD", shell->env)))
-		modify_env("PWD", oldpwd, &shell);
-	else
-		shell->env = ft_tabpushback(shell->env, pwd);
-	modify_env("OLDPWD", actual_path, &shell);
-	ft_strdel(&pwd);
-	ft_strdel(&getenv);
-	ft_strdel(&getn);
-	ft_strdel(&actual_path);
-	return (1);
+	ft_cd_basic(shell, oldpwd);
+	free(oldpwd);
 }
 
-int		ft_cd(char **tab, t_shell *shell, int fast)
+void		go_home(t_shell *shell)
 {
-	char	*getenv;
-	char	*actual_path;
+	char	*home;
 
-	if ((getenv = get_env("PWD", shell->env)))
+	if ((home = get_env("HOME", shell->env)) == NULL)
 	{
-		actual_path = check_link(getenv, shell->env);
-		ft_strdel(&getenv);
+		ft_error_env("", "cd: HOME not set", "");
+		return ;
 	}
-	else
-		actual_path = ft_getcwd();
-	if (fast)
-		return (cd_path(tab[0], actual_path, shell));
+	ft_cd_basic(shell, home);
+	free(home);
+}
+
+void		ft_cd(char **tab, t_shell *shell, int fast)
+{
+	(void)fast;
 	if (cd_error(tab))
-	{
-		ft_strdel(&actual_path);
-		return (1);
-	}
-	if (!tab[1] || ft_strcmp(tab[1], "--") == 0)
-		return (cd_nothing(actual_path, shell));
+		return ;
+	else if (!tab[1])
+		go_home(shell);
 	else if (ft_strcmp(tab[1], "-") == 0)
-		return (cd_back(actual_path, shell));
+		swap_pwd(shell);
 	else
-		return (cd_path(tab[1], actual_path, shell));
-	ft_strdel(&actual_path);
-	return (1);
+		ft_cd_basic(shell, tab[1]);
+
 }

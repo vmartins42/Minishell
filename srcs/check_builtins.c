@@ -6,21 +6,23 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 11:54:59 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/30 12:32:00 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 12:32:04 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int			check_builtin(char **tab, t_shell *shell, int i)
+int			check_builtin(char **tab, t_shell *shell)
 {
-	(void)i;
 	if (!tab[0])
 		return (1);
 	if (cd_fast(tab, shell))
 		return (1);
 	if (ft_strcmp(tab[0], "cd") == 0)
-		return (ft_cd(tab, shell, 0));
+	{
+		ft_cd(tab, shell, 0);
+		return (1);
+	}
 	else if (ft_strcmp(tab[0], "exit") == 0)
 		return (0);
 	else if (ft_strcmp(tab[0], "env") == 0)

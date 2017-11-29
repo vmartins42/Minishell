@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 13:28:14 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/30 11:09:34 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/02 11:54:50 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int		cmd_multi(t_shell *shell, char **tab_cmd_pars)
 	while (tab_cmd_pars[++i])
 	{
 		tmp = ft_strsplit(tab_cmd_pars[i], ' ');
-		if (!check_builtin(tmp, shell, 0))
+		if (!check_builtin(tmp, shell))
 			return (0);
 		ft_freetab((void**)tmp, ft_tablen(tmp));
 	}

@@ -6,39 +6,11 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 11:27:30 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/16 15:15:38 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 17:57:50 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	cd_adomold(t_shell **beginshell, char *actual_path, char *name)
-{
-	char	*getenv;
-	t_shell *shell;
-
-	shell = *beginshell;
-	if ((getenv = get_env("OLDPWD", shell->env)))
-		modify_env("OLDPWD", actual_path, &shell);
-	else
-		shell->env = ft_tabpushback(shell->env, name);
-	ft_strdel(&getenv);
-	ft_strdel(&actual_path);
-}
-
-void	cd_adompwd(t_shell **beginshell, char *actual_path, char *name)
-{
-	char	*getenv;
-	t_shell	*shell;
-
-	shell = *beginshell;
-	if ((getenv = get_env("PWD", shell->env)))
-		modify_env("PWD", actual_path, &shell);
-	else
-		shell->env = ft_tabpushback(shell->env, name);
-	ft_strdel(&getenv);
-	ft_strdel(&actual_path);
-}
 
 int		check_files(char *elem_tab)
 {

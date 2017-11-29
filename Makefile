@@ -6,7 +6,7 @@
 #    By: vmartins <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:24:58 by vmartins          #+#    #+#              #
-#    Updated: 2017/10/30 14:21:29 by vmartins         ###   ########.fr        #
+#    Updated: 2017/11/29 17:58:34 by vmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRCS = srcs/minishell.c \
 	   srcs/error.c \
 	   srcs/setenv.c \
 	   srcs/cd.c \
-	   srcs/cd_link.c \
 	   srcs/cd_modify.c \
 	   srcs/cd_options.c \
+	   srcs/ft_reporem.c \
 
 #INCLUDES
 INCLUDES = includes/minishell.h

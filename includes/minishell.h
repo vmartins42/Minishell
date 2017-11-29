@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 14:24:32 by vmartins          #+#    #+#             */
-/*   Updated: 2017/10/30 14:21:11 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/29 16:32:32 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ typedef struct	s_shell
 
 int		get_next_line(const int fd, char **line);
 void	ft_exit(char **args);
-int		check_builtin(char **tab, t_shell *shell, int i);
+int		check_builtin(char **tab, t_shell *shell);
 int		ft_env(char **tab, t_shell *shell);
 int		ft_unsetenv(char **tab, t_shell *shell, int j);
 int		ft_echo(char **tab, t_shell *shell, int i);
 int		ft_error_env(char *elem_tab, char *name, char *error);
 int		ft_error_setenv(char *name, char *elem_tab, char *error);
-int		ft_cd(char **tab, t_shell *shell, int fast);
+void	ft_cd(char **tab, t_shell *shell, int fast);
 int		ft_setenv(char **tab, t_shell *shell, char *resutl, char *temp);
 char	*get_env(char *elem_tab, char **env);
 int		modify_env(char *name, char *value, t_shell **beginshell);
@@ -52,5 +52,8 @@ void	cd_adomold(t_shell **beginshell, char *actual_path, char *name);
 void	cd_adompwd(t_shell **beginshell, char *actual_path, char *name);
 int		check_files(char *elem_tab);
 int		process(char **tab, t_shell *shell);
+char	*ft_replace_str(char *new_str, char *old);
+char	*ft_remove_useless_path(char *str);
+void	replace_pwd(t_shell **beginshell, char *pwd);
 
 #endif
