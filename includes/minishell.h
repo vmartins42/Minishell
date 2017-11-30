@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 14:24:32 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/30 12:37:45 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/30 13:18:36 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct	s_shell
 }				t_shell;
 
 int		get_next_line(const int fd, char **line);
-void	ft_exit(char **args);
 int		check_builtin(char **tab, t_shell *shell);
 int		ft_env(char **tab, t_shell *shell);
 int		ft_unsetenv(char **tab, t_shell *shell, int j);

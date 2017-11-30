@@ -6,7 +6,7 @@
 #    By: vmartins <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:24:58 by vmartins          #+#    #+#              #
-#    Updated: 2017/11/30 11:47:38 by vmartins         ###   ########.fr        #
+#    Updated: 2017/11/30 13:19:30 by vmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ FLAGS = -Wall -Wextra -Werror -g
 #SRCS
 SRCS = srcs/minishell.c \
 	   srcs/get_next_line.c \
-	   srcs/ft_exit.c \
 	   srcs/check_builtins.c \
 	   srcs/env.c \
 	   srcs/unsetenv.c \
@@ -27,7 +26,6 @@ SRCS = srcs/minishell.c \
 	   srcs/error.c \
 	   srcs/setenv.c \
 	   srcs/cd.c \
-	   srcs/cd_modify.c \
 	   srcs/cd_options.c \
 	   srcs/ft_replace.c \
 	   srcs/ft_remove.c \
