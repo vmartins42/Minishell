@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 14:24:32 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/29 16:32:32 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/30 12:37:45 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,13 @@ char	*get_env(char *elem_tab, char **env);
 int		modify_env(char *name, char *value, t_shell **beginshell);
 int		check_env(char **tab);
 int		add_or_modif_env(t_shell *shell, char *elem_tab, int i);
-int		cd_fast(char **tab, t_shell *shell);
-char	*go_link(char *elem, char **env);
-char	*back_link(char *elem_tab, char *getenv, int i);
-char	*check_link(char *elem_tab, char **env);
+int		cd_fast(char **tab);
 int		cd_error(char **tab);
-void	cd_adomold(t_shell **beginshell, char *actual_path, char *name);
-void	cd_adompwd(t_shell **beginshell, char *actual_path, char *name);
 int		check_files(char *elem_tab);
 int		process(char **tab, t_shell *shell);
-char	*ft_replace_str(char *new_str, char *old);
 char	*ft_remove_useless_path(char *str);
 void	replace_pwd(t_shell **beginshell, char *pwd);
+void	replace_oldpwd(t_shell **beginshell, char *pwd);
+char	*ft_replace_str(char *new_str, char *old);
 
 #endif

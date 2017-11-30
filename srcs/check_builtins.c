@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 11:54:59 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/29 12:32:04 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/30 13:12:31 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ int			check_builtin(char **tab, t_shell *shell)
 {
 	if (!tab[0])
 		return (1);
-	if (cd_fast(tab, shell))
+	if (cd_fast(tab) == 1)
+	{
+		ft_cd(tab, shell, 1);
 		return (1);
+	}
 	if (ft_strcmp(tab[0], "cd") == 0)
 	{
 		ft_cd(tab, shell, 0);

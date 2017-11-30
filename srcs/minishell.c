@@ -6,7 +6,7 @@
 /*   By: vmartins <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 13:28:14 by vmartins          #+#    #+#             */
-/*   Updated: 2017/11/02 11:54:50 by vmartins         ###   ########.fr       */
+/*   Updated: 2017/11/30 12:07:25 by vmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			prompt(void)
 	char dir[256];
 
 	ft_putstr(getcwd(dir, sizeof(dir)));
-	ft_putstr("$> ");
+	ft_putstr(" $> ");
 }
 
 void			ft_handler_signal(int signum)

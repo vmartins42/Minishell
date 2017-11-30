@@ -6,7 +6,7 @@
 #    By: vmartins <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/24 15:24:58 by vmartins          #+#    #+#              #
-#    Updated: 2017/11/29 17:58:34 by vmartins         ###   ########.fr        #
+#    Updated: 2017/11/30 11:47:38 by vmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS = srcs/minishell.c \
 	   srcs/cd.c \
 	   srcs/cd_modify.c \
 	   srcs/cd_options.c \
-	   srcs/ft_reporem.c \
+	   srcs/ft_replace.c \
+	   srcs/ft_remove.c \
 
 #INCLUDES
 INCLUDES = includes/minishell.h
